@@ -1,0 +1,38 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client"
+  output   = "../app/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum PlantType {
+  Vegetables
+  Fruits
+  Grains
+  Legumes
+  NutsAndSeeds
+  HerbsAndSpices
+}
+
+model Plant {
+  id        Int           @id @default(autoincrement())
+  name      String        @unique
+  type      PlantType?
+  createdAt DateTime      @default(now())
+  intakes   PlantIntake[]
+}
+
+model PlantIntake {
+  id      Int      @id @default(autoincrement())
+  plantId Int
+  plant   Plant    @relation(fields: [plantId], references: [id])
+  date    DateTime @db.Date
+}
