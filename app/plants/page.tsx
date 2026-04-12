@@ -3,6 +3,8 @@ import { createPlant } from "@/app/plant-actions";
 import { AddPlantForm } from "./add-plant-form";
 import { PlantRow } from "./plant-row";
 
+export const dynamic = "force-dynamic";
+
 export default async function Plants() {
   const plants = await prisma.plant.findMany({ orderBy: { name: "asc" } });
 

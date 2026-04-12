@@ -22,6 +22,8 @@ const TYPE_COLORS: Record<PlantType, string> = {
   HerbsAndSpices: "#8b5cf6",
 };
 
+export const dynamic = "force-dynamic";
+
 export default async function LogHistory() {
   const [intakes, plants] = await Promise.all([
     prisma.plantIntake.findMany({

@@ -57,6 +57,8 @@ const ALL_TYPES = Object.values(PlantType);
 
 // ── Page ────────────────────────────────────────────────────────────────────
 
+export const dynamic = "force-dynamic";
+
 export default async function Home({
   searchParams,
 }: {
