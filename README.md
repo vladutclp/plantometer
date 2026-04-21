@@ -2,6 +2,32 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 
 ## Getting Started
 
+### Prerequisites
+
+This project requires a PostgreSQL database. You can run one locally with Docker:
+
+```bash
+docker run --name plantometer-dev-db \
+  -e POSTGRES_DB=plantometer \
+  -e POSTGRES_PASSWORD=dev \
+  -p 5432:5432 \
+  -d postgres:17
+```
+
+Create a `.env` file at the project root with:
+
+```
+DATABASE_URL="postgres://postgres:dev@localhost:5432/plantometer"
+```
+
+Then apply the database migrations (required on first setup or after switching to a new database):
+
+```bash
+npx prisma migrate dev
+```
+
+### Running the app
+
 First, run the development server:
 
 ```bash
