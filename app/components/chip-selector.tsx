@@ -45,9 +45,7 @@ export function ChipSelector({
 
   const toggle = (id: number) => {
     setSelected((prev) => {
-      console.log("prev: ", prev, typeof prev);
       const next = new Set(prev);
-      console.log("next: ", next);
       if (next.has(id)) {
         next.delete(id);
       } else {
