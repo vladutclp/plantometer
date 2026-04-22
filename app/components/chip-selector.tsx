@@ -55,17 +55,28 @@ export function ChipSelector({
     });
   };
 
+  const clearSearchInput = () => setSearch("");
+
   return (
     <form action={formAction} className="flex flex-col gap-3">
       {/* Search */}
-      <input
-        type="search"
-        placeholder="Search plants…"
-        value={search}
-        onChange={(e) => setSearch(e.target.value)}
-        className="input w-full"
-      />
-
+      <div className="relative">
+        <input
+          type="text"
+          placeholder="Search plants…"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          className="input w-full"
+        />
+        {search.length > 0 && (
+          <button
+            onClick={clearSearchInput}
+            className="ml-1 text-2xl opacity-70 absolute right-4 top-1"
+          >
+            ×
+          </button>
+        )}
+      </div>
       {/* Chips */}
       {filtered.length === 0 ? (
         <p className="text-stone-400 text-sm py-2">
@@ -81,7 +92,9 @@ export function ChipSelector({
               className={`chip ${selected.has(p.id) ? "chip-active" : "chip-default"}`}
             >
               {p.name}
-              {selected.has(p.id) && <span className="ml-1 opacity-70">×</span>}
+              {selected.has(p.id) && (
+                <span className="ml-1 text-lg opacity-70">×</span>
+              )}
             </button>
           ))}
         </div>
