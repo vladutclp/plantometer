@@ -30,7 +30,7 @@ export function AddPlantForm({ action }: { action: ActionFn }) {
           name="name"
           placeholder="e.g. Broccoli"
           required
-          className="input w-full text-sm"
+          className="input w-full"
         />
       </div>
       <div className="flex flex-col gap-1">
@@ -43,14 +43,8 @@ export function AddPlantForm({ action }: { action: ActionFn }) {
           ))}
         </select>
       </div>
-      {state?.error && (
-        <p className="text-error text-xs">{state.error}</p>
-      )}
-      <button
-        type="submit"
-        disabled={isPending}
-        className="btn-primary"
-      >
+      {state?.error && <p className="text-error text-xs">{state.error}</p>}
+      <button type="submit" disabled={isPending} className="btn-primary">
         {isPending ? "Adding…" : "Add plant"}
       </button>
     </form>

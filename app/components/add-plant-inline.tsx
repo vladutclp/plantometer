@@ -43,17 +43,14 @@ export function AddPlantInline() {
               placeholder="e.g. Broccoli"
               required
               autoFocus
-              className="input w-full text-sm"
+              className="input w-full"
             />
           </div>
           <div className="flex flex-col gap-1">
             <label className="text-[13px] font-medium text-stone-700">
               Type
             </label>
-            <select
-              name="type"
-              className="input w-full text-sm bg-white"
-            >
+            <select name="type" className="input w-full text-sm bg-white">
               {PLANT_TYPES.map((t) => (
                 <option key={t.value} value={t.value}>
                   {t.label}
@@ -61,14 +58,8 @@ export function AddPlantInline() {
               ))}
             </select>
           </div>
-          {state?.error && (
-            <p className="text-error text-xs">{state.error}</p>
-          )}
-          <button
-            type="submit"
-            disabled={isPending}
-            className="btn-primary"
-          >
+          {state?.error && <p className="text-error text-xs">{state.error}</p>}
+          <button type="submit" disabled={isPending} className="btn-primary">
             {isPending ? "Saving…" : "Save plant"}
           </button>
         </form>
