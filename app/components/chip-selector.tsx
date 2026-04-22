@@ -71,12 +71,12 @@ export function ChipSelector({
           className="input w-full"
         />
         {search.length > 0 && (
-          <span
+          <button
             onClick={clearSearchInput}
             className="ml-1 text-2xl opacity-70 absolute right-4 top-1"
           >
             ×
-          </span>
+          </button>
         )}
       </div>
       {/* Chips */}
