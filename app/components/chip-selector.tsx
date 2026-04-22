@@ -71,7 +71,7 @@ export function ChipSelector({
         {search.length > 0 && (
           <button
             onClick={clearSearchInput}
-            className="ml-1 text-2xl opacity-70 absolute right-4 top-1"
+            className="ml-1 text-2xl opacity-70 absolute h-full w-10 top-0 right-0"
           >
             ×
           </button>
