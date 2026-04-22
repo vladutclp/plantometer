@@ -40,15 +40,17 @@ export function ChipSelector({
   }
 
   const filtered = search
-    ? plants.filter((p) =>
-        p.name.toLowerCase().includes(search.toLowerCase()),
-      )
+    ? plants.filter((p) => p.name.toLowerCase().includes(search.toLowerCase()))
     : plants;
 
   const toggle = (id: number) => {
     setSelected((prev) => {
       const next = new Set(prev);
-      if (next.has(id)) { next.delete(id); } else { next.add(id); }
+      if (next.has(id)) {
+        next.delete(id);
+      } else {
+        next.add(id);
+      }
       return next;
     });
   };
@@ -61,7 +63,7 @@ export function ChipSelector({
         placeholder="Search plants…"
         value={search}
         onChange={(e) => setSearch(e.target.value)}
-        className="input w-full text-sm"
+        className="input w-full"
       />
 
       {/* Chips */}
@@ -79,9 +81,7 @@ export function ChipSelector({
               className={`chip ${selected.has(p.id) ? "chip-active" : "chip-default"}`}
             >
               {p.name}
-              {selected.has(p.id) && (
-                <span className="ml-1 opacity-70">×</span>
-              )}
+              {selected.has(p.id) && <span className="ml-1 opacity-70">×</span>}
             </button>
           ))}
         </div>
@@ -100,7 +100,7 @@ export function ChipSelector({
           value={date}
           max={todayStr}
           onChange={(e) => setDate(e.target.value)}
-          className="input w-full text-sm"
+          className="input w-full"
         />
       ) : (
         <input type="hidden" name="date" value={todayStr} />

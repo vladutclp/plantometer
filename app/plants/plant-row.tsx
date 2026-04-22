@@ -69,7 +69,7 @@ export function PlantRow({ plant }: { plant: Plant }) {
               defaultValue={plant.name}
               required
               autoFocus
-              className="input w-full text-sm"
+              className="input w-full"
             />
           </div>
           <div className="flex flex-col gap-1">
@@ -147,9 +147,7 @@ export function PlantRow({ plant }: { plant: Plant }) {
           </button>
         </div>
       </div>
-      {deleteError && (
-        <p className="text-error text-xs mt-1">{deleteError}</p>
-      )}
+      {deleteError && <p className="text-error text-xs mt-1">{deleteError}</p>}
     </li>
   );
 }
