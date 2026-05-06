@@ -4,58 +4,14 @@ import Link from "next/link";
 import { ChipSelector } from "./components/chip-selector";
 import { AddPlantInline } from "./components/add-plant-inline";
 import { removeIntake } from "./intake-actions";
-
-// ── Date helpers ────────────────────────────────────────────────────────────
-
-function todayUTC(): Date {
-  const now = new Date();
-  return new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate()));
-}
-
-function getWeekStart(date: Date): Date {
-  const day = date.getUTCDay();
-  const diff = day === 0 ? -6 : 1 - day;
-  const monday = new Date(date);
-  monday.setUTCDate(date.getUTCDate() + diff);
-  return monday;
-}
-
-function parseWeekParam(param: string | undefined, today: Date): Date {
-  if (param) {
-    const [y, m, d] = param.split("-").map(Number);
-    const date = new Date(Date.UTC(y, m - 1, d));
-    if (!isNaN(date.getTime()) && date.getUTCDay() === 1) return date;
-  }
-  return getWeekStart(today);
-}
-
-function toDateParam(d: Date): string {
-  return d.toISOString().split("T")[0];
-}
-
-// ── Display helpers ─────────────────────────────────────────────────────────
-
-const TYPE_LABELS: Record<PlantType, string> = {
-  Vegetables: "Vegetables",
-  Fruits: "Fruits",
-  Grains: "Grains",
-  Legumes: "Legumes",
-  NutsAndSeeds: "Nuts & Seeds",
-  HerbsAndSpices: "Herbs & Spices",
-};
-
-const TYPE_COLORS: Record<PlantType, string> = {
-  Vegetables: "#72c441",
-  Fruits: "#f59e0b",
-  Grains: "#d4a853",
-  Legumes: "#7cb87a",
-  NutsAndSeeds: "#b58a4a",
-  HerbsAndSpices: "#8b5cf6",
-};
-
-const ALL_TYPES = Object.values(PlantType);
-
-// ── Page ────────────────────────────────────────────────────────────────────
+import {
+  getWeekStart,
+  parseWeekParam,
+  toDateParam,
+  todayInTZ,
+} from "./utils/time";
+import { ALL_TYPES, TYPE_COLORS, TYPE_LABELS } from "./constants/constants";
+import { headers } from "next/headers";
 
 export const dynamic = "force-dynamic";
 
@@ -65,7 +21,8 @@ export default async function Home({
   searchParams: Promise<{ week?: string }>;
 }) {
   const { week } = await searchParams;
-  const today = todayUTC();
+  const tz = (await headers()).get("x-vercel-ip-timezone") ?? "UTC";
+  const today = todayInTZ(tz);
   const todayStr = toDateParam(today);
 
   const currentWeekStart = getWeekStart(today);
@@ -102,6 +59,7 @@ export default async function Home({
       orderBy: { id: "desc" },
     }),
   ]);
+  console.log("weekIntakes: ", weekIntakes);
 
   // Weekly summary: deduplicate by plant, group by type
   const seenPlantIds = new Set<number>();
