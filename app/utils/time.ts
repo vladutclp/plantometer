@@ -15,7 +15,8 @@ export function parseWeekParam(param: string | undefined, today: Date): Date {
   return getWeekStart(today);
 }
 
-export function toDateParam(d: Date): string {
+export function toDateParam(d: Date, withTime = false): string {
+  if (withTime) return d.toISOString().replace("T", " ").slice(0, 19);
   return d.toISOString().split("T")[0];
 }
 

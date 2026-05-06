@@ -267,6 +267,10 @@ export default async function Home({
             <span className="text-stone-400 font-normal text-sm">
               ({todayIntakes.length})
             </span>
+            <br />
+            <span className="text-stone-400 font-normal text-xs">
+              {toDateParam(new Date(), true)}
+            </span>
           </h2>
           {todayIntakes.length === 0 ? (
             <p className="text-stone-400 text-sm">Nothing logged yet today.</p>
