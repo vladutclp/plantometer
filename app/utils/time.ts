@@ -17,17 +17,12 @@ export function parseWeekParam(param: string | undefined, today: Date): Date {
   return getWeekStart(today);
 }
 
-export function toDateParam(
-  d: Date,
-  withTime = false,
-  timeZone = DEFAULT_TZ,
-): string {
-  if (withTime) {
-    return d
-      .toLocaleString("en-CA", { timeZone, hour12: false })
-      .replace(", ", " ");
-  }
-  return d.toLocaleDateString("en-CA", { timeZone });
+export function toDateParam(d: Date): string {
+  return d.toISOString().split("T")[0];
+}
+
+export function toDateTimeInTZ(d: Date, timeZone = DEFAULT_TZ): string {
+  return d.toLocaleString("en-CA", { timeZone, hour12: false }).replace(", ", " ");
 }
 
 export function todayInTZ(timeZone: string): Date {

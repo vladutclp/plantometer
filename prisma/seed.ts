@@ -52,9 +52,8 @@ const plants = [
 ];
 
 function daysAgo(n: number): Date {
-  const d = new Date("2026-04-21");
-  d.setDate(d.getDate() - n);
-  return d;
+  const now = new Date();
+  return new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate() - n));
 }
 
 async function main() {
