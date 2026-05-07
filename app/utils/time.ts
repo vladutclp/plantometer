@@ -1,3 +1,5 @@
+export const DEFAULT_TZ = "America/St_Kitts";
+
 export function getWeekStart(date: Date): Date {
   const day = date.getUTCDay();
   const diff = day === 0 ? -6 : 1 - day;
@@ -15,9 +17,17 @@ export function parseWeekParam(param: string | undefined, today: Date): Date {
   return getWeekStart(today);
 }
 
-export function toDateParam(d: Date, withTime = false): string {
-  if (withTime) return d.toISOString().replace("T", " ").slice(0, 19);
-  return d.toISOString().split("T")[0];
+export function toDateParam(
+  d: Date,
+  withTime = false,
+  timeZone = DEFAULT_TZ,
+): string {
+  if (withTime) {
+    return d
+      .toLocaleString("en-CA", { timeZone, hour12: false })
+      .replace(", ", " ");
+  }
+  return d.toLocaleDateString("en-CA", { timeZone });
 }
 
 export function todayInTZ(timeZone: string): Date {
