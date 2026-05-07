@@ -5,6 +5,7 @@ import { ChipSelector } from "./components/chip-selector";
 import { AddPlantInline } from "./components/add-plant-inline";
 import { removeIntake } from "./intake-actions";
 import {
+  DEFAULT_TZ,
   getWeekStart,
   parseWeekParam,
   toDateParam,
@@ -21,7 +22,8 @@ export default async function Home({
   searchParams: Promise<{ week?: string }>;
 }) {
   const { week } = await searchParams;
-  const tz = (await headers()).get("x-vercel-ip-timezone") ?? "UTC";
+  const tz = (await headers()).get("x-vercel-ip-timezone") ?? DEFAULT_TZ;
+  console.log("Your time zone is: ", tz);
   const today = todayInTZ(tz);
   const todayStr = toDateParam(today);
 
