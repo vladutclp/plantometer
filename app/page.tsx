@@ -9,6 +9,7 @@ import {
   getWeekStart,
   parseWeekParam,
   toDateParam,
+  toDateTimeInTZ,
   todayInTZ,
 } from "./utils/time";
 import { ALL_TYPES, TYPE_COLORS, TYPE_LABELS } from "./constants/constants";
@@ -271,7 +272,7 @@ export default async function Home({
             </span>
             <br />
             <span className="text-stone-400 font-normal text-xs">
-              {toDateParam(new Date(), true)}
+              {toDateTimeInTZ(new Date(), tz)}
             </span>
           </h2>
           {todayIntakes.length === 0 ? (
